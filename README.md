@@ -30,8 +30,8 @@ I REQUIRE HELP TO MAKE THIS WORK FOR THE PAL VERSIONS OF SYPHON FILTER 2.
 README for NTSC-U versions of Syphon Filter 2:
 
 0. Rip your CD images to bin/cue.
-   Rename them syphon2-1.bin, syphon2-2.bin
-   If you used Clone CD, rename the img to bin
+- Rename them syphon2-1.bin, syphon2-2.bin
+- If you used Clone CD, rename the img to bin
 
 1. Apply any PPF patches to your bin/cue
 - They probably won't work when the new image is created
