@@ -1,0 +1,24 @@
+# Project: dat2file
+# Makefile created by Dev-C++ 4.9.3.0
+
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = cdxa2mpeg.o $(RES)
+LIBS =  -L"d:\archiv~1\Dev-C++\lib" 
+INCS =  -I"d:\archiv~1\Dev-C++\include" 
+BIN  = dat2file.exe
+CFLAGS = $(INCS)  -s -O2
+
+.PHONY: clean
+
+all: dat2file.exe
+
+clean:
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(OBJ) -o $(BIN) $(RES) $(LIBS) $(CFLAGS)
+
+cdxa2mpeg.o: cdxa2mpeg.c 
+	$(CC) -c cdxa2mpeg.c -o cdxa2mpeg.o $(CFLAGS)

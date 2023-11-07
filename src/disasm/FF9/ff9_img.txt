@@ -1,0 +1,36 @@
+Tonberry (qhimm.com)
+000: (4 bytes) Signature "FF9 ".
+004: (4 bytes) Don't know yet. (Value=0x6)
+008: (4 bytes) Number of entries in directory. (Value=0xf)
+00C: (4 bytes) Don't know yet. (Value=0x1/2/4/8)
+
+
+Next follow each directoy entry up to a number equal to the value at offset 0x008.
+
+(4 bytes) - Type. (02=directory; 03=array of files; 04=end of volume) (I think.)
+(4 bytes) - Number of files in directory. (Except for type 04. - 00)
+(4 bytes) - Pointer to sector with more information about files in directory. (Different meaning for type 04. - ptr to first file)
+(4 bytes) - Pointer to first sector of first file. (Except for type 04. - 00)
+
+pad with "FF9 " for rest of 0x800 bytes
+
+
+
+Type 02 entries have elements like this:
+(4 bytes) - I don't know what they are, but include incrementing numbers and some attributes. (Maybe identifiers.)
+(4 bytes) - Pointer to first sector of file.
+
+This means Type 02 entries are like directories, with entries pointing directly to the files.
+FFFFFFFF - EOF
+(ptr to end of last file)
+
+
+Type 03 entries are a bit different. I've got only one. Its elements are like this:
+(2 bytes) - Number of sectors to add to base sector or 0xffff for empty entries, with "base sector" being the sector pointer that appears in the Type 03 entry.
+
+I see Type 03 entries as an array of pointers to files inside another file. Perhaps a better term would be subdirectory, but then, the structure is not like the others. You pick the names as I'm not very good at that.
+I think all files in this entry are the effects you see (hear?) in the battles as there are a lot of images of little stars and thunder.
+
+(pad with 00)
+
+The Type 04 entry effectively indicates there are no more entries. It points to the same sector pointed by the first entry.

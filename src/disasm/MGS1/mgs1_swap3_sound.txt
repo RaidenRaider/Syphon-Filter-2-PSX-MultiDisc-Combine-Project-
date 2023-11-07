@@ -1,0 +1,11 @@
+$$$$$$ ZAP jump / Or set $20 -> $00 (removes logo sound #1)
+800c6600 : 0C00D20F  JAL     8003483c, 800c65f8 (ra),
+800c6604 : 24060020  ADDIU   80117e3e (a2), 00000000 (r0), 0020 (32),
+
+$$$$$$ ZAP jump / Or set $0f -> $00 (removes logo sound #2)
+800c7740 : 0C00D20F  JAL     8003483c, 800c7738 (ra),
+800c7744 : 2406000F  ADDIU   800c75a0 (a2), 00000000 (r0), 000f (15),
+
+$$$$$$ ZAP jump / Or set $7b -> $00 (removes logo sound #3)
+800c74b8 : 0C00D20F  JAL     8003483c, 800c746c (ra),
+800c74bc : 2406007B  ADDIU   0011cfb8 (a2), 00000000 (r0), 007b (123),

@@ -1,0 +1,10 @@
+objs=cdxa2mpeg.o
+srcs=cdxa2mpeg.c
+output=dat2file
+
+all:
+	gcc -c $(srcs)
+	gcc -o $(output) $(objs)
+
+clean:
+	-rm -f $(objs) $(output)
