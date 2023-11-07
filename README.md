@@ -14,7 +14,7 @@ You'll need ~4GB to finish the operation
 Tested versions:
 - 2000-02-16  Original (NTSC-U)
 - 2000-02-16  Greatest Hits (NTSC-U)
-- 
+  
 Not working versions:
 - Original  (PAL-E)
 - Platinum  (PAL-E)
