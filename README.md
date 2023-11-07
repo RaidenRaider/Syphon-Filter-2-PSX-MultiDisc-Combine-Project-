@@ -5,11 +5,10 @@ Originally created by "Shalma" on https://www.ngemu.com/threads/disc-combining-k
 
 Syphon Filter 2 [SCUS-94451 / 94492]
 
-This will combine your 2 game CDs into 1 disc
+This will combine your 2 game CDs into 1 disc.
 Tested only with ePSXe 1.6.0 and ePSXe 1.7.0
 
-WARNING:
-You'll need ~4GB to finish the operation
+WARNING: You'll need ~4GB to finish the operation
 
 Tested versions:
 - 2000-02-16  Original (NTSC-U)
@@ -33,7 +32,6 @@ README for NTSC-U versions of Syphon Filter 2:
 
 0. Rip your CD images to bin/cue.
    Rename them syphon2-1.bin, syphon2-2.bin
-
    If you used Clone CD, rename the img to bin
 
 0a. Apply any PPF patches to your bin/cue
