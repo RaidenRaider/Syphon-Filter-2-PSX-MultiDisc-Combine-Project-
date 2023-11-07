@@ -1,0 +1,96 @@
+; DEBUG = 10B800-10BAE0, 10BE20-10C060
+;
+; 10B800-10B8xx = change CD name (FOG), fix SCENES LBA cache
+
+
+;8002a3ec : 86220000  LH      00000001 (v0), 0000 (8012b02c (s1)) [8012b02c]
+;8002a3f0 : 00000000  NOP    
+;-->
+;8002a3f4 : 00021080  SLL     00000014 (v0), 00000014 (v0), 02 (2),
+;8002a3f8 : 3C018011  LUI     80120000 (at), 8011 (32785),
+;-->
+;8002a3fc : 00220821  ADDU    80110000 (at), 80110000 (at), 00000050 (v0),
+;8002a400 : 8C26C874  LW      8013ccb0 (a2), c874 (80110050 (at)) [8010c8c4]
+;8002a404 : 3C058011  LUI     1f801110 (a1), 8011 (32785),
+
+
+
+;EE6D0 = CD1
+;EE7C4 = CD2
+;11F900 = SCENES.XA cache
+
+
+
+org $8010b800
+
+; CD1 FOG range (0-7)
+sltiu at,v0,8
+bne at,r0,WRITE_FOG
+ori a2,r0,$31
+
+; CD2 FOG range (8-20)
+sltiu at,v0,21
+bne at,r0,WRITE_FOG
+ori a2,r0,$32
+
+; CD1 FOG range (21)
+sltiu at,v0,22
+bne at,r0,WRITE_FOG
+ori a2,r0,$31
+
+; CD2 FOG range (22)
+sltiu at,v0,23
+bne at,r0,WRITE_FOG
+ori a2,r0,$32
+
+; CD1 FOG range (23+)
+ori a2,r0,$31
+
+
+; 109020 = \FO1\%s.FOG;1
+
+WRITE_FOG:
+lui at,$8010+1
+sb a2,$9023(at)
+
+; --------------------
+; --------------------
+; --------------------
+; --------------------
+
+; 11F900 = SCENES.XA LBA
+; = 393F8-3F277 [SCENES1.XA]
+; = 7F770-8704F [SCENES2.XA]
+
+sltiu at,a2,$32
+beq at,r0,WRITE_SCENES2
+nop
+
+
+WRITE_SCENES1:
+lui a2,$3
+ori a2,a2,$93f8
+j WRITE_SCENES_LBA
+nop
+
+WRITE_SCENES2:
+lui a2,$7
+ori a2,a2,$f770
+
+
+
+WRITE_SCENES_LBA:
+lui at,$8011+1
+sw a2,$f900(at)
+
+; ====================
+; ====================
+; ====================
+
+EXIT:
+
+sll v0,v0,2
+
+; OLD code
+j $8002a3f8
+lui at,$8011

@@ -1,0 +1,21 @@
+; DEBUG = 16D50-17F50
+;
+; 16D50-16D60 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 16D60-16DD0 = address -> time LBA remap
+; 16DD0-16E30 = time -> address LBA remap
+; 16E30-16Exx = write correct CD #
+
+
+;-->
+;80044258 : 3C028008  LUI     0000012c (v0), 8008 (32776),
+;8004425c : 8442E40C  LH      80080000 (v0), e40c (80080000 (v0)) [8007e40c]
+;-->
+;80044260 : 27BDFFB8  ADDIU   801ffe58 (sp), 801ffe58 (sp), ffb8 (65464),
+;80044264 : AFB20030  SW      80085df4 (s2), 0030 (801ffe10 (sp)) [801ffe40]
+
+
+
+org $80044258
+
+j $80016e30
+nop
