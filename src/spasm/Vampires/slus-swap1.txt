@@ -1,0 +1,75 @@
+; DEBUG = 13B90-143B0
+;
+; 13B90-13xxx = replace swap code (compressed)
+
+
+
+;800252c4 : 27BDFFE8  ADDIU   800df4d0 (sp), 800df4d0 (sp), ffe8 (65512),
+;-->
+;800252c8 : 3C04800B  LUI     800eece0 (a0), 800b (32779),
+;800252cc : AFBF0010  SW      800e5148 (ra), 0010 (800df4b8 (sp)) [800df4c8]
+;-->
+;800252d0 : 0C039478  JAL     800e51e0, 800e5148 (ra),
+
+
+org $80013b90
+
+; OLD code
+sw ra,$10(sp)
+
+; ================
+; ================
+; ================
+; ================
+
+; safety check
+lui ra,$800e
+lw ra,$5b20(ra)
+lui a0,$f596
+ori a0,a0,$030c
+bne a0,ra,EXIT
+
+
+lui ra,$800e
+
+; replace CD open / close checks
+sw r0,$5b20(ra)
+sw r0,$5b28(ra)
+
+; replace CD checks
+sw r0,$5b38(ra)
+sw r0,$5b40(ra)
+sw r0,$5b4c(ra)
+
+; replace final CD checks
+sw r0,$5b6c(ra)
+sw r0,$5b74(ra)
+
+
+; store current CD #
+lui ra,$800b
+lbu a0,$3ef0(ra)
+nop
+
+; 1->0
+bne a0,r0,STORE_CD
+ori a0,r0,0
+
+; 0->1
+ori a0,r0,1
+
+STORE_CD
+sb a0,$3ef0(ra)
+
+; ================
+; ================
+; ================
+; ================
+
+EXIT:
+
+; OLD code
+lui a0,$800b
+
+j $800252d0
+nop

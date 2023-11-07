@@ -1,0 +1,21 @@
+; DEBUG = 2B190-2B440
+;
+; 2B190-2B1B0 = CD1 LBA / CD2 LBA / <unused> / CD #
+; 2B1B0-2B200 = address -> time LBA remap
+; 2B200-2Bxxx = swap nag removal
+
+
+
+;-->
+;80020dc4 : 27BDFFE0  ADDIU   801fff30 (sp), 801fff30 (sp), ffe0 (65504),
+;80020dc8 : AFB10014  SW      8009c290 (s1), 0014 (801fff10 (sp)) [801fff24]
+;-->
+;80020dcc : 3C118003  LUI     8009c290 (s1), 8003 (32771),
+;80020dd0 : 2631D0B6  ADDIU   80030000 (s1), 80030000 (s1), d0b6 (53430),
+
+
+
+org $80020dc4
+
+j $8002b200
+nop

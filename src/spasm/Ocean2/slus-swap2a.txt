@@ -1,0 +1,20 @@
+; DEBUG = 2B190-2B440
+;
+; 2B190-2B1B0 = CD1 LBA / CD2 LBA / <unused> / CD #
+; 2B1B0-2B200 = address -> time LBA remap
+; 2B200-2B260 = swap nag removal
+; 2B260-2B2xx = swap CD #s
+
+
+
+;-->
+;8006fb1c : 0C008371  JAL     80020dc4, 8006fb1c (ra),
+;8006fb20 : 24040001  ADDIU   1f801110 (a0), 00000000 (r0), 0001 (1),
+;-->
+
+
+
+org $8006fb1c
+
+jal $8002b260
+nop

@@ -1,0 +1,40 @@
+--------------------------------------------------------------------------
+                  SEE README.TXT FOR THE OLD INSTRUCTIONS.
+--------------------------------------------------------------------------
+
+Version 0.34a
+-------------
+
+  - fixed the "Load error: no DOS memory" error
+
+NOTE: This is an unofficial release.
+
+Version 0.34:
+-------------
+
+  - fixed a small bug with the COPx instructions
+  - you can now use '0x1234' type hex numbers
+
+--------------------------------------------------------------------------
+
+Version 0.33:
+-------------
+
+The first public release for a long time...
+
+  - fixed a few bugs
+  - now recognises all GTE register names
+  - also recognises the cop0 register names
+  - '>label' and '<label' give the hi and low word of a label's address.
+  - added the 'rfe' instruction
+  - '*' gives the current address, eg:
+           
+    label:  jal * + $100
+            nop
+
+    This will jump 256 bytes forward from the address of "label".
+
+
+Quick greets to Doomed/Padua and Duddie/Vision Thing.
+--------------------------------------------------------------------------
+

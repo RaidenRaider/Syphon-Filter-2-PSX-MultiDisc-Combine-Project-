@@ -1,0 +1,39 @@
+; DEBUG = 30900-30CA0
+;
+; 30900-30910 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 30910-30990 = address -> time LBA remap [NOT USED]
+; 30990-30A00 = time -> address LBA remap [NOT USED]
+;
+; 30910-30990 = time LBA movie remap1 (m:s:f)
+; 30990-30A00 = time LBA movie remap2 (m:s:f)
+; 30A00-30Axx = write correct CD #
+
+
+
+;-->
+;80079b44 : 124200BB  BEQ     00000001 (s2), 00000002 (v0), 80079e34,
+;80079b48 : AFB00010  SW      8002de08 (s0), 0010 (801fff98 (sp)) [801fffa8]
+;-->
+;80079b4c : 0C025EDF  JAL     80097b7c, 80036d70 (ra),
+;80079b50 : 00002021  ADDU    00010000 (a0), 00000000 (r0), 00000000 (r0),
+
+
+
+org $80030a00
+
+; write correct CD # (avoid swap)
+lui a0,$800b+1
+sb s2,$c268(a0)
+
+; =====================
+; =====================
+; =====================
+; =====================
+
+EXIT:
+
+; OLD code
+sw s0,$10(sp)
+
+j $80079e34
+nop

@@ -1,0 +1,56 @@
+; DEBUG = 30900-30CA0
+;
+; 30900-30910 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 30910-30990 = address -> time LBA remap [NOT USED]
+; 30990-30A00 = time -> address LBA remap [NOT USED]
+;
+; 30910-30990 = time LBA movie remap1 (m:s:f)
+; 30990-30A00 = time LBA movie remap2 (m:s:f)
+; 30A00-30A30 = write correct CD #
+; 30A30-30A80 = time LBA movie remap3 (m:s:f)
+; 30A80-30Axx = time LBA movie remap4 (m:s:f)
+
+
+
+
+;8006c0f4 : 88C20003  LWL     8006d5d8 (v0), 0003 (800cd282 (a2)) [800cd285]
+;8006c0f8 : 98C20000  LWR     0034d5d8 (v0), 0000 (800cd282 (a2)) [800cd282]
+;8006c0fc : 00000000  NOP    
+;-->
+;8006c100 : AA420003  SWL     00345532 (v0), 0003 (800c4008 (s2)) [800c400b]
+;8006c104 : BA420000  SWR     00345532 (v0), 0000 (800c4008 (s2)) [800c4008]
+;-->
+;8006c108 : 34020002  ORI     00345532 (v0), 00000000 (r0), 0002 (2),
+;8006c10c : 3C01800C  LUI     800c0000 (at), 800c (32780),
+
+
+
+org $80030a80
+
+; only remap CD2 movies
+lui at,$800b+1
+lbu ra,$c268(at)
+nop
+
+; 1->0
+addiu ra,ra,$ffff
+beq ra,r0,EXIT
+nop
+
+
+; remap CD2 [1:24.9] -> [71:24.9]
+addiu v0,v0,$70
+
+; =====================
+; =====================
+; =====================
+; =====================
+
+EXIT:
+
+; OLD code
+swl v0,3(s2)
+swr v0,0(s2)
+
+j $8006c108
+nop

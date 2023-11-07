@@ -1,0 +1,15 @@
+; MOVIE.EXE
+;
+; LBA list = $A90-B80
+; LBA code = $B80-BB0
+
+
+;800bdf18 : 27BDFFE8  ADDIU   801ffd90 (sp), 801ffd90 (sp), ffe8 (65512),
+;800bdf1c : AFBF0010  SW      800bde48 (ra), 0010 (801ffd78 (sp)) [801ffd88]
+;800bdf20 : 0C02F988  JAL     800be620, 800bde48 (ra),
+;800bdf24 : 2406000C  ADDIU   00000000 (a2), 00000000 (r0), 000c (12),
+
+org $800BDF18
+
+j $800B8380
+nop

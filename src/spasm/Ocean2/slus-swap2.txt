@@ -1,0 +1,51 @@
+; DEBUG = 2B190-2B440
+;
+; 2B190-2B1B0 = CD1 LBA / CD2 LBA / <unused> / CD #
+; 2B1B0-2B200 = address -> time LBA remap
+; 2B200-2B260 = swap nag removal
+; 2B260-2B2xx = swap CD #s
+
+
+
+;-->
+;8006fb1c : 0C008371  JAL     80020dc4, 8006fb1c (ra),
+;8006fb20 : 24040001  ADDIU   1f801110 (a0), 00000000 (r0), 0001 (1),
+;-->
+;80020dc4 : 27BDFFE0  ADDIU   801fff10 (sp), 801fff10 (sp), ffe0 (65504),
+;80020dc8 : AFB10014  SW      80098ec4 (s1), 0014 (801ffef0 (sp)) [801fff04]
+;80020dcc : 3C118003  LUI     80098ec4 (s1), 8003 (32771),
+;80020dd0 : 2631D0B6  ADDIU   80030000 (s1), 80030000 (s1), d0b6 (53430),
+;80020dd4 : AFBF0018  SW      8006fc10 (ra), 0018 (801ffef0 (sp)) [801fff08]
+;80020dd8 : AFB00010  SW      00000001 (s0), 0010 (801ffef0 (sp)) [801fff00]
+;80020ddc : 92220000  LBU     0000078a (v0), 0000 (8002d0b6 (s1)) [8002d0b6]
+;80020de0 : 00000000  NOP    
+
+
+org $8002b600
+
+; load cached CD #
+lui a0,$8002+1
+lbu v0,$b19c(a0)
+nop
+
+; 1->0
+bne v0,r0,STORE_CD
+ori v0,r0,0
+
+; 0->1
+ori v0,r0,1
+
+
+STORE_CD:
+; change internal CD #s
+sb v0,$b19c(a0)
+
+; ==========================
+; ==========================
+; ==========================
+; ==========================
+
+; DO NOT EXECUTE OLD CODE
+
+jr ra
+nop

@@ -1,0 +1,18 @@
+; DEBUG = 13B90-143B0
+;
+; 13B90-13xxx = replace swap code (compressed)
+
+
+
+;800252c4 : 27BDFFE8  ADDIU   800df4d0 (sp), 800df4d0 (sp), ffe8 (65512),
+;-->
+;800252c8 : 3C04800B  LUI     800eece0 (a0), 800b (32779),
+;800252cc : AFBF0010  SW      800e5148 (ra), 0010 (800df4b8 (sp)) [800df4c8]
+;-->
+;800252d0 : 0C039478  JAL     800e51e0, 800e5148 (ra),
+
+
+org $800252c8
+
+j $80013b90
+nop

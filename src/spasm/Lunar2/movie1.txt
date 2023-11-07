@@ -1,0 +1,74 @@
+; MOVIE.EXE
+;
+; LBA list = $A90-B80
+; LBA code = $B80-BB0
+
+
+;800bdf18 : 27BDFFE8  ADDIU   801ffd90 (sp), 801ffd90 (sp), ffe8 (65512),
+;800bdf1c : AFBF0010  SW      800bde48 (ra), 0010 (801ffd78 (sp)) [801ffd88]
+;800bdf20 : 0C02F988  JAL     800be620, 800bde48 (ra),
+;800bdf24 : 2406000C  ADDIU   00000000 (a2), 00000000 (r0), 000c (12),
+
+org $800B8380
+
+
+; OLD code (free registers)
+addiu sp,sp,$ffe8
+sw ra,$10(sp)
+
+;-----------------------
+;-----------------------
+;-----------------------
+;-----------------------
+
+; ra
+; a2
+; v1
+; v0
+
+; copy movie name
+lui a2,$801f
+ori a2,a2,$fda0
+lw ra,0(a2)
+nop
+
+; replace file name 'S05.STR'
+lui v0,$8013
+ori v0,v0,$5490
+sw ra,0(v0)
+
+; compute movie # (BCD -> int) [$30-39]
+; - [x*8 + x + x] + [y]
+lbu v0,1(a2)
+nop
+andi v0,v0,$0f
+sll ra,v0,3
+addu ra,ra,v0
+addu ra,ra,v0
+
+lbu v0,2(a2)
+nop
+andi v0,v0,$0f
+addu ra,ra,v0
+
+; find movie LBA (32-bit values)
+sll ra,ra,2
+
+lui a2,$800B
+ori a2,a2,$8290
+addu a2,a2,ra
+lw v0,0(a2)
+nop
+
+; replace movie LBA
+lui a2,$8013
+ori a2,a2,$5488
+sw v0,0(a2)
+
+;-----------------------
+;-----------------------
+;-----------------------
+;-----------------------
+
+j $800bdf20
+nop
