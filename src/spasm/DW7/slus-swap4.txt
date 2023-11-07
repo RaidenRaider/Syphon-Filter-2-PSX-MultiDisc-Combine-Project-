@@ -1,0 +1,37 @@
+; DEBUG = 26EC0-27770
+;
+; 26EC0-26ED0 = CD # + flag mismatch / CD1 LBA / CD2 LBA / <unused>
+; 26ED0-26F30 = address -> time LBA remap
+; 26F30-26F80 = time -> address LBA remap
+; 26F80-26FC0 = swap CD #s (internal)
+; 26FC0-26FF0 = raise CD mismatch flag (load game)
+; 26FF0-27090 = change disc swap text
+; 27090-270xx = raise CD mismatch flag (new game)
+
+
+;-->
+;800791b8 : 90820001  LBU     00000032 (v0), 0001 (80026d0b (a0)) [80026d0c]
+;800791bc : 00000000  NOP    
+;-->
+;800791c0 : 10400013  BEQ     00000000 (v0), 00000000 (r0), 80079210,
+;800791c4 : 24050003  ADDIU   0000000b (a1), 00000000 (r0), 0003 (3),
+
+
+org $80027090
+
+; raise flag (remove 'Please insert disc' --> 'Please wait'
+ori v0,r0,1
+lui a1,$8002
+sb v0,$6ec1(a1)
+
+; ======================
+; ======================
+; ======================
+; ======================
+
+; OLD code
+lbu v0,1(a0)
+nop
+
+j $800791c0
+nop

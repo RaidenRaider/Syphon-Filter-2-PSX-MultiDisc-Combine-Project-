@@ -1,0 +1,60 @@
+; DEBUG = 1EEA90-1EECF0, 1EF250-1EF430, 1EF450-1EF580
+;
+; 1EEA90-1EEAA0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 1EEAA0-1EEB10 = address -> time LBA remap
+; 1EEB10-1EExxx = time -> address LBA remap
+
+
+
+;80085fec : 00651821  ADDU    00000014 (v1), 00000014 (v1), 00000003 (a1),
+;80085ff0 : 00431021  ADDU    00000096 (v0), 00000096 (v0), 00000017 (v1),
+;-->
+;80085ff4 : 03E00008  JR      80016e3c (ra),
+;80085ff8 : 2442FF6A  ADDIU   000000ad (v0), 000000ad (v0), ff6a (65386),
+;-->
+
+
+org $801eeb10
+
+; OLD code
+addiu v0,v0,$ff6a
+
+; ========================
+; ========================
+; ========================
+; ========================
+
+; check range (0-3DF)
+sltiu a0,v0,$3e0
+bne a0,r0,EXIT
+nop
+
+
+
+; load CD # (1-2)
+lui a0,$801e+1
+lbu a1,$ea90(a0)
+nop
+
+; load from LBA table
+lui a0,$801e+1
+sll a1,a1,2
+addu a0,a0,a1
+lw v1,$ea90(a0)
+nop
+
+; move v0 to 'zero offset'
+subu v0,v0,v1
+
+; move v0 to 'fixed LBA offset'
+addiu v0,v0,$3e0
+
+; ======================
+; ======================
+; ======================
+; ======================
+
+EXIT:
+
+jr ra
+nop

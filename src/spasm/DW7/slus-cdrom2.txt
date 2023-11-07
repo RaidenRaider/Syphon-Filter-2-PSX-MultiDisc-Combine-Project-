@@ -1,0 +1,51 @@
+; DEBUG = 26EC0-27770
+;
+; 26EC0-26ED0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 26ED0-26F30 = address -> time LBA remap
+; 26F30-26xxx = time -> address LBA remap
+
+
+;8009a30c : 00651821  ADDU    0000003c (v1), 0000003c (v1), 00000002 (a1),
+;8009a310 : 00431021  ADDU    00049d8b (v0), 00049d8b (v0), 0000003e (v1),
+;-->
+;8009a314 : 03E00008  JR      800796fc (ra),
+;8009a318 : 2442FF6A  ADDIU   00049dc9 (v0), 00049dc9 (v0), ff6a (65386),
+;-->
+
+
+org $80026f30
+
+; OLD code
+
+addiu v0,v0,$ff6a
+
+; ========================
+; ========================
+; ========================
+; ========================
+
+; find LBA table
+lui a0,$8002
+ori a0,a0,$6ec0
+lbu a1,0(a0)
+nop
+
+; find starting LBA
+sll a1,a1,2
+addu a0,a0,a1
+lw v1,4(a0)
+nop
+
+; move v0 to 'zero offset'
+sub v0,v0,v1
+
+; move v0 to 'fixed LBA'
+addiu v0,v0,$162
+
+; ======================
+; ======================
+; ======================
+; ======================
+
+jr ra
+nop

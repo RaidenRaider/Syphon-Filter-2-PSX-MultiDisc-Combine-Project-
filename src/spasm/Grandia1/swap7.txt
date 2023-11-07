@@ -1,0 +1,286 @@
+; DEBUG = $1A660-1A960
+;
+; 660-6B0 = reload cache dirs (new game)
+; 6B0-6F0 = reload cache dirs (load game)
+; 6F0-8F0 = CDROM DMA (LBA tables 1/2 + GM1/2.IDX)
+
+
+org $1a6f0
+
+
+; save regs
+addiu sp,sp,$fffc
+sw ra,$0(sp)
+
+; check disc # (1-2)
+lui a0,$1
+lbu v0,$01af(a0)
+nop
+
+addiu v0,v0,$ffff
+beq v0,r0,DISC_1
+nop
+
+beq r0,r0,DISC_2
+nop
+
+; ========================
+; ========================
+; ========================
+
+DISC_1:
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - LBA_CD1A.BIN
+lui v0,$8
+ori v0,v0,$9547
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$4
+lui a2,$1
+ori a2,a2,$23e0
+
+; DMA from CDROM #1
+jal $1e058
+nop
+
+
+
+; Wait for DMA to finish
+lui a0,$1
+ori v1,r0,$4346
+
+WAIT_1:
+lh v0,$43d0(a0)
+nop
+bne v0,v1,WAIT_1
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - LBA_CD1B.BIN
+lui v0,$8
+ori v0,v0,$954B
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$1
+lui a2,$1
+ori a2,a2,$4010
+
+; DMA from CDROM #2
+jal $1e058
+nop
+
+
+
+; Wait for DMA to finish
+lui a0,$1
+ori v1,r0,$4957
+
+WAIT_1a:
+lh v0,$4750(a0)
+nop
+bne v0,v1,WAIT_1a
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - GM1.IDX
+lui v0,$3
+ori v0,v0,$d64a
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$1
+lui a2,$3
+ori a2,a2,$e800
+
+; DMA from GM1.IDX
+jal $1e058
+nop
+
+
+
+; Wait for DMA to finish
+lui a0,$3+1
+ori v1,r0,$7a31
+
+WAIT_1b:
+lh v0,$ee22(a0)
+nop
+bne v0,v1,WAIT_1b
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+; Write GM(1).IDX
+ori a0,r0,$31
+lui a1,$3+1
+sb a0,$e7f2(a1)
+
+
+
+beq r0,r0,EXIT
+nop
+
+; ========================
+; ========================
+; ========================
+
+DISC_2:
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - LBA_CD2A.BIN
+lui v0,$8
+ori v0,v0,$954C
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$4
+lui a2,$1
+ori a2,a2,$23e0
+
+; DMA from CDROM #1
+jal $1e058
+nop
+
+
+
+; Wait for DMA to finish
+lui a0,$1
+ori v1,r0,$4150
+
+WAIT_2:
+lh v0,$43d0(a0)
+nop
+bne v0,v1,WAIT_2
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - LBA_CD2B.BIN
+lui v0,$8
+ori v0,v0,$9550
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$1
+lui a2,$1
+ori a2,a2,$4010
+
+; DMA from CDROM #2
+jal $1e058
+nop
+
+
+
+
+; Wait for DMA to finish
+lui a0,$1
+ori v1,r0,$4957
+
+WAIT_2a:
+lh v0,$4670(a0)
+nop
+bne v0,v1,WAIT_2a
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+lui a0,$3
+ori a0,a0,$d930
+
+; LBA addr (3d970)
+; LBA offset (3d930) - GM2.IDX
+lui v0,$6
+ori v0,v0,$a962
+sw v0,$40(a0)
+sw r0,$0(a0)
+
+; 0 (?)
+; sector count
+; RAM dest
+ori a0,r0,0
+ori a1,r0,$1
+lui a2,$3
+ori a2,a2,$e800
+
+; DMA from GM2.IDX
+jal $1e058
+nop
+
+; --------------------
+; --------------------
+; --------------------
+
+; Write GM(2).IDX
+ori a0,r0,$32
+lui a1,$3+1
+sb a0,$e7f2(a1)
+
+
+
+beq r0,r0,EXIT
+nop
+
+; ========================
+; ========================
+; ========================
+
+EXIT:
+
+; restore regs
+lw ra,$0(sp)
+nop
+addiu sp,sp,$4
+
+jr ra
+nop

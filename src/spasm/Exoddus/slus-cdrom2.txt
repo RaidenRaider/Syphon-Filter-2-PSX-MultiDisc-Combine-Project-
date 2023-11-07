@@ -1,0 +1,60 @@
+; DEBUG = 16D50-17F50
+;
+; 16D50-16D60 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 16D60-16DD0 = address -> time LBA remap
+; 16DD0-16Exx = time -> address LBA remap
+
+
+
+;80066110 : 00651821  ADDU    00000014 (v1), 00000014 (v1), 00000000 (a1),
+;80066114 : 00431021  ADDU    000004fb (v0), 000004fb (v0), 00000014 (v1),
+;-->
+;80066118 : 03E00008  JR      800686b0 (ra),
+;8006611c : 2442FF6A  ADDIU   0000050f (v0), 0000050f (v0), ff6a (65386),
+;-->
+
+
+org $80016dd0
+
+; OLD code
+addiu v0,v0,$ff6a
+
+; ========================
+; ========================
+; ========================
+; ========================
+
+; check range (0-6E10)
+sltiu a0,v0,$6e11
+bne a0,r0,EXIT
+nop
+
+
+
+; load CD # (1-2)
+lui a0,$8007+1
+lbu a1,$e40c(a0)
+nop
+
+; load from LBA table
+lui a0,$8001
+sll a1,a1,2
+addu a0,a0,a1
+lw v1,$6d50(a0)
+nop
+
+; move v0 to 'zero offset'
+subu v0,v0,v1
+
+; move v0 to 'fixed LBA offset'
+addiu v0,v0,$6e11
+
+; ======================
+; ======================
+; ======================
+; ======================
+
+EXIT:
+
+jr ra
+nop

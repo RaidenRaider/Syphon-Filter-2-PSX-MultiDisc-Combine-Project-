@@ -1,0 +1,89 @@
+; DEBUG = 110B0-11430
+;
+; 110B0-11130 = remove CD open/close flags
+; 11130-11160 = restore swap state 4
+
+
+;-->
+;80013750 : 3C04800C  LUI     800c0000 (a0), 800c (32780),
+;80013754 : 3C03800C  LUI     800c0000 (v1), 800c (32780),
+;-->
+;80013758 : 3C02800C  LUI     800c0000 (v0), 800c (32780),
+;8001375c : AC40B14C  SW      00000000 (r0), b14c (800c0000 (v0)) [800bb14c]
+
+; v0,v1,a0,ra,s0
+
+
+org $800110b0
+
+; check target #1 - 800F48FC (swap state 5)
+lui v0,$800d
+ori v0,v0,$9744
+
+lui a0,$800f
+lw v1,$48fc(a0)
+nop
+
+bne v0,v1,EXIT
+nop
+
+; replace with state 4
+lui v0,$800d
+ori v0,v0,$96b8
+sw v0,$48fc(a0)
+
+; ----------------------
+; ----------------------
+; ----------------------
+
+;800d9734 : 8FBF0014  LW      800d92d4 (ra), 0014 (801fff70 (sp)) [801fff84]
+;800d9738 : 8FB00010  LW      800c0000 (s0), 0010 (801fff70 (sp)) [801fff80]
+;800d973c : 03E00008  JR      800d92d4 (ra),
+;800d9740 : 27BD0018  ADDIU   801fff70 (sp), 801fff70 (sp), 0018 (24),
+
+; check target #2 - swap state 4 exit
+lui v0,$03e0
+ori v0,v0,$0008
+
+lui a0,$800d+1
+lw v1,$973c(a0)
+nop
+
+bne v0,v1,EXIT
+nop
+
+; replace with NOP
+sw r0,$973c(a0)
+
+
+
+;800d975c : 8FBF0010  LW      800d9754 (ra), 0010 (801fff70 (sp)) [801fff80]
+;800d9760 : 00000000  NOP    
+;800d9764 : 03E00008  JR      800d92d4 (ra),
+;800d9768 : 27BD0018  ADDIU   801fff70 (sp), 801fff70 (sp), 0018 (24),
+
+; swap state 5 exit
+sw r0,$9764(a0)
+
+
+
+;800d9784 : 14620005  BNE     00000002 (v1), 00000001 (v0), 800d979c,
+;800d9788 : 00000000  NOP    
+
+; swap state 6 - remove cd check
+lui v0,$0800
+ori v0,v0,$444c
+sw v0,$9784(a0)
+
+; ======================
+; ======================
+; ======================
+
+EXIT:
+
+; OLD code
+lui a0,$800c
+lui v1,$800c
+
+j $80013758
+nop

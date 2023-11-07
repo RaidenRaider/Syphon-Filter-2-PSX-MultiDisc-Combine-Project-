@@ -1,0 +1,18 @@
+; DEBUG = 1EEA90-1EECF0, 1EF250-1EF430, 1EF450-1EF580
+;
+; 1EEA90-1EEAA0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 1EEAA0-1EExxx = address -> time LBA remap
+
+
+
+;-->
+;80085e78 : 3C031B4E  LUI     00000017 (v1), 1b4e (6990),
+;80085e7c : 346381B5  ORI     1b4e0000 (v1), 1b4e0000 (v1), 81b5 (33205),
+;-->
+;80085e80 : 24840096  ADDIU   00000017 (a0), 00000017 (a0), 0096 (150),
+
+
+org $80085e78
+
+j $801eeaa0
+nop

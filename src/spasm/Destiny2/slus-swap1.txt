@@ -1,0 +1,92 @@
+; DEBUG = 1EE80-1F4A0
+;
+; 1EE80-1EExx = replace E.XA name
+
+
+
+;-->
+;80020784 : 14500003  BNE     00000002 (v0), 00000000 (s0), 80020794,
+;80020788 : 3C02800C  LUI     00000002 (v0), 800c (32780),
+;-->
+;8002078c : 080081E7  J       8002079c,
+;80020790 : 00001021  ADDU    800c0000 (v0), 00000000 (r0), 00000000 (r0),
+
+
+org $8001ee80
+
+; write correct CD #
+lui ra,$800c
+sb s0,$54e0(ra)
+
+
+; find CD #
+lui ra,$8009+1
+
+WRITE_CD1:
+sltiu v0,s0,1
+beq v0,r0,WRITE_CD2
+nop
+
+; write CD1 m:s:f
+; 53F9B-59A3A [1.XA] [76:28.13 - 81:37.37]
+; $02D50000
+
+lui v0,$0013
+ori v0,v0,$2876
+sw v0,$b268(ra)
+
+lui v0,$02d5
+ori v0,v0,$0000
+sw v0,$b264(ra)
+
+beq r0,r0,EXIT
+nop
+
+
+WRITE_CD2:
+sltiu v0,s0,2
+beq v0,r0,WRITE_CD3
+nop
+
+; write CD2 m:s:f
+; 59A3B-5DE0A [2.XA] [81:37.38 - 85:28.72]
+; $021E8000
+
+lui v0,$0038
+ori v0,v0,$3781
+sw v0,$b268(ra)
+
+lui v0,$021e
+ori v0,v0,$8000
+sw v0,$b264(ra)
+
+beq r0,r0,EXIT
+nop
+
+
+WRITE_CD3:
+
+; write CD3 m:s:f
+; 5DE0B-6076A [3.XA] [85:28.73 - 87:50.14]
+; $014B0000
+
+lui v0,$0073
+ori v0,v0,$2885
+sw v0,$b268(ra)
+
+lui v0,$014b
+ori v0,v0,$0000
+sw v0,$b264(ra)
+
+; =====================
+; =====================
+; =====================
+; =====================
+
+EXIT:
+
+; OLD code
+lui v0,$800c
+
+j $8002078c
+nop

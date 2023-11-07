@@ -1,0 +1,20 @@
+; DEBUG = 1EEA90-1EECF0, 1EF250-1EF430, 1EF450-1EF580
+;
+; 1EEA90-1EEAA0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 1EEAA0-1EEB10 = address -> time LBA remap
+; 1EEB10-1EExxx = time -> address LBA remap
+
+
+
+;80085fec : 00651821  ADDU    00000014 (v1), 00000014 (v1), 00000003 (a1),
+;80085ff0 : 00431021  ADDU    00000096 (v0), 00000096 (v0), 00000017 (v1),
+;-->
+;80085ff4 : 03E00008  JR      80016e3c (ra),
+;80085ff8 : 2442FF6A  ADDIU   000000ad (v0), 000000ad (v0), ff6a (65386),
+;-->
+
+
+org $80085ff4
+
+j $801eeb10
+nop

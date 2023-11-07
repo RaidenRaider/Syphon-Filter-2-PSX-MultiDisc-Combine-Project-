@@ -1,0 +1,17 @@
+; DEBUG = 16D50-17F50
+;
+; 16D50-16D60 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 16D60-16xxx = address -> time LBA remap
+
+
+;-->
+;80065f9c : 3C031B4E  LUI     0000001d (v1), 1b4e (6990),
+;80065fa0 : 346381B5  ORI     1b4e0000 (v1), 1b4e0000 (v1), 81b5 (33205),
+;-->
+;80065fa4 : 24840096  ADDIU   00000479 (a0), 00000479 (a0), 0096 (150),
+
+
+org $80065f9c
+
+j $80016d60
+nop

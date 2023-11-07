@@ -1,0 +1,30 @@
+; DEBUG = $1A660-1A960
+;
+; 660-6D0 = change cache names (REMOVED)
+; 6D0-6F0 = boot disc # (REMOVED)
+
+
+; load directories (MASTER CALL)
+;0001b284 : 0C007420  JAL     0001d080, 0001b284 (ra),
+;0001b288 : 00000000  NOP    
+
+
+
+org $1a6d0
+
+; set disc 1
+ori a0,r0,1
+
+; write disc #
+lui a1,$1
+ori a1,a1,$01af
+sb a0,0(a1)
+
+; =========================
+; =========================
+; =========================
+; =========================
+
+; OLD code
+j $1d080
+nop

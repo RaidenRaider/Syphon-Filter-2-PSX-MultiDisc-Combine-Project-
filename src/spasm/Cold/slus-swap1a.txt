@@ -1,0 +1,22 @@
+; DEBUG = 1EEA90-1EECF0, 1EF250-1EF430, 1EF450-1EF580
+;
+; 1EEA90-1EEAA0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 1EEAA0-1EEB10 = address -> time LBA remap
+; 1EEB10-1EEB80 = time -> address LBA remap
+; 1EEB80-1EEBxx = write correct CD #
+
+
+
+;-->
+;80016d8c : 240600FF  ADDIU   00000000 (a2), 00000000 (r0), 00ff (255),
+;80016d90 : 2403007F  ADDIU   66070220 (v1), 00000000 (r0), 007f (127),
+;-->
+;80016d94 : 24050001  ADDIU   1acb0b61 (a1), 00000000 (r0), 0001 (1),
+;80016d98 : 3C07801F  LUI     359616c2 (a3), 801f (32799),
+
+
+
+org $80016d8c
+
+j $801eeb80
+nop

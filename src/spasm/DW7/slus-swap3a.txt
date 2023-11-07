@@ -1,0 +1,22 @@
+; DEBUG = 26EC0-27770
+;
+; 26EC0-26ED0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 26ED0-26F30 = address -> time LBA remap
+; 26F30-26F80 = time -> address LBA remap
+; 26F80-26FC0 = swap CD #s (internal)
+; 26FC0-26FF0 = raise CD mismatch flag (internal)
+; 26FF0-270xx = change disc swap text
+
+
+;-->
+;8002d1fc : 92020082  LBU     8002d1fc (v0), 0082 (800ebb70 (s0)) [800ebbf2]
+;8002d200 : 92030081  LBU     80025318 (v1), 0081 (800ebb70 (s0)) [800ebbf1]
+;-->
+;8002d204 : 00000000  NOP    
+;8002d208 : 0043102B  SLTU    00000000 (v0), 00000000 (v0), 0000002b (v1),
+
+
+org $8002d1fc
+
+j $80026ff0
+nop

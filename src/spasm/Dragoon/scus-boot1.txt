@@ -1,0 +1,66 @@
+; DEBUG = 1BEDA0-1BEE30
+;
+; 1BEDA0-1BExxx = copy code
+;
+; 1BF050-1BF0D0 = remove swap data
+; 1BF0D0-1BF100 = restore swap 4 exit
+
+
+;801c0990 : 240A00A0  ADDIU   000000b0 (t2), 00000000 (r0), 00a0 (160),
+;-->
+;801c0994 : 01400008  JR      000000a0 (t2),
+;801c0998 : 24090043  ADDIU   00000060 (t1), 00000000 (r0), 0043 (67),
+;-->
+
+org $801beda0
+
+; copy swap code (s1->s0, v0 bytes)
+lui s1,$801b
+ori s1,s1,$f050
+
+lui s0,$8001
+ori s0,s0,$10b0
+
+ori v0,r0,$1bf100-$1bf050
+
+
+COPY_LOOP:
+lw v1,0(s1)
+addi s1,s1,4
+
+sw v1,0(s0)
+addi s0,s0,4
+
+addi v0,v0,$fffc
+
+bne v0,r0,COPY_LOOP
+nop
+
+; -------------------------
+; -------------------------
+; -------------------------
+
+;-->
+;80013750 : 3C04800C  LUI     800c0000 (a0), 800c (32780),
+;80013754 : 3C03800C  LUI     800c0000 (v1), 800c (32780),
+;-->
+
+;80013750 : 0800442C  J       800110b0,
+
+
+; insert swap hack (activates above code)
+lui v0,$0800
+ori v0,v0,$442c
+
+lui s0,$8001
+sw v0,$3750(s0)
+sw r0,$3754(s0)
+
+; =============================
+; =============================
+; =============================
+
+; OLD code
+
+jr t2
+addiu t1,r0,$43

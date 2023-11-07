@@ -1,0 +1,83 @@
+; DEBUG = 26EC0-27770
+;
+; 26EC0-26ED0 = CD # + flag mismatch / CD1 LBA / CD2 LBA / <unused>
+; 26ED0-26F30 = address -> time LBA remap
+; 26F30-26F80 = time -> address LBA remap
+; 26F80-26FC0 = swap CD #s (internal)
+; 26FC0-26FF0 = raise CD mismatch flag (internal)
+; 26FF0-270xx = change disc swap text
+
+
+;-->
+;8002d1fc : 92020082  LBU     8002d1fc (v0), 0082 (800ebb70 (s0)) [800ebbf2]
+;8002d200 : 92030081  LBU     80025318 (v1), 0081 (800ebb70 (s0)) [800ebbf1]
+;-->
+;8002d204 : 00000000  NOP    
+;8002d208 : 0043102B  SLTU    00000000 (v0), 00000000 (v0), 0000002b (v1),
+;8002d20c : 10400224  BEQ     00000001 (v0), 00000000 (r0), 8002daa0,
+;8002d210 : 00000000  NOP    
+;8002d214 : 92060082  LBU     801350b6 (a2), 0082 (800ebb70 (s0)) [800ebbf2]
+
+
+
+org $80026ff0
+
+; check mismatch flag
+lui a2,$8002
+lbu v0,$6ec1(a2)
+nop
+beq v0,r0,EXIT
+
+; check text 'Please insert (di)sc'
+lui v0,$6882
+ori v0,v0,$6382
+
+lui a2,$800e+1
+lw v1,$bb90(a2)
+nop
+bne v0,v1,EXIT
+
+; check text 'Please insert di(sc)'
+lui v0,$6282
+ori v0,v0,$7282
+
+lw v1,$bb94(a2)
+nop
+bne v0,v1,EXIT
+
+; change text to 'Please( w)ait.'
+lui v0,$9782
+ori v0,v0,$4081
+sw v0,$bb80(a2)
+
+; change text to 'Please w(ai)t.'
+lui v0,$8982
+ori v0,v0,$8182
+sw v0,$bb84(a2)
+
+; change text to 'Please wai(t.)'
+lui v0,$4481
+ori v0,v0,$9482
+sw v0,$bb88(a2)
+
+; change text to 'Please wait.($0000)'
+sw r0,$bb8c(a2)
+
+; lower flag
+lui a2,$8002
+sb r0,$6ec1(a2)
+
+; ======================
+; ======================
+; ======================
+; ======================
+
+EXIT:
+
+; OLD code
+lbu v0,$82(s0)
+lbu v1,$81(s0)
+nop
+
+j $8002d204
+nop

@@ -1,0 +1,19 @@
+; DEBUG = 16D50-17F50
+;
+; 16D50-16D60 = <unused> / CD1 LBA / CD2 LBA / <unused>
+; 16D60-16DD0 = address -> time LBA remap
+; 16DD0-16Exx = time -> address LBA remap
+
+
+;80066110 : 00651821  ADDU    00000014 (v1), 00000014 (v1), 00000000 (a1),
+;80066114 : 00431021  ADDU    000004fb (v0), 000004fb (v0), 00000014 (v1),
+;-->
+;80066118 : 03E00008  JR      800686b0 (ra),
+;8006611c : 2442FF6A  ADDIU   0000050f (v0), 0000050f (v0), ff6a (65386),
+;-->
+
+
+org $80066118
+
+j $80016dd0
+nop

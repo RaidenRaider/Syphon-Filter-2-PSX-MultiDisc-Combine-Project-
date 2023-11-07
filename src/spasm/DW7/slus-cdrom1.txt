@@ -1,0 +1,55 @@
+; DEBUG = 26EC0-27770
+;
+; 26EC0-26ED0 = CD # / CD1 LBA / CD2 LBA / <unused>
+; 26ED0-26F30 = address -> time LBA remap
+; 26F30-26xxx = time -> address LBA remap
+
+
+
+;-->
+;8009a198 : 3C031B4E  LUI     000fffff (v1), 1b4e (6990),
+;8009a19c : 346381B5  ORI     1b4e0000 (v1), 1b4e0000 (v1), 81b5 (33205),
+;-->
+;8009a1a0 : 24840096  ADDIU   00000162 (a0), 00000162 (a0), 0096 (150),
+
+
+org $80026ed0
+
+; avoid LBA range (0-161)
+ori v0,r0,$162
+sltu v1,a0,v0
+bne v1,r0,EXIT
+nop
+
+; adjust LBA ptr (start at zero)
+sub a0,a0,v0
+
+; prepare CD ptr
+lui v0,$8002
+ori v0,v0,$6ec0
+lbu v1,0(v0)
+nop
+
+; load new starting ptr (table)
+sll v1,v1,2
+addu v0,v0,v1
+lw v1,4(v0)
+nop
+
+; remap LBA to final range
+addu a0,a0,v1
+
+; ===========================
+; ===========================
+; ===========================
+; ===========================
+
+EXIT:
+
+; OLD code
+
+lui v1,$1b4e
+ori v1,v1,$81b5
+
+j $8009a1a0
+nop
