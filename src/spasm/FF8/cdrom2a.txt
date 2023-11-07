@@ -1,0 +1,19 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; CODE: Patch IMG file (starting LBA) in real-time
+
+;-->
+;80043a00 : 3C031B4E  LUI     800562d8 (v1), 1b4e (6990),
+;80043a04 : 346381B5  ORI     1b4e0000 (v1), 1b4e0000 (v1), 81b5 (33205),
+;-->
+;80043a08 : 24840096  ADDIU   00018275 (a0), 00018275 (a0), 0096 (150),
+;80043a0c : 00830018  MULT    0001830b (a0), 1b4e81b5 (v1),
+
+
+
+org $80043a00
+
+j $800109e0
+nop

@@ -1,0 +1,31 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+; - A60-ABF = [CDROM] Movie timestamp
+; - AC0-B0F = [SWAP] Real-time compression patches
+
+
+; CODE: Changes decompressed overlay to bypass swap code
+
+;-->
+;8004d724 : 24020001  ADDIU   00000040 (v0), 00000000 (r0), 0001 (1),
+;8004d728 : A0820003  SB      00000001 (v0), 0003 (80099270 (a0)) [80099273]
+;-->
+;8004d72c : 10C00002  BEQ     00000000 (a2), 00000000 (r0), 8004d738,
+;8004d730 : 3C03E100  LUI     00000000 (v1), e100 (57600),
+
+; safe area to remap compressed overlays
+; - v0,v1
+
+
+org $8004d724
+
+j $80010ac0
+nop

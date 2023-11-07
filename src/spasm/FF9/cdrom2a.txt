@@ -1,0 +1,29 @@
+; .open "SLUS_012.51", 0x8000B070
+
+; $860-$B80
+; - This is debug code area
+
+
+; CODE:
+; $890 = Time (BCD) -> Address
+;
+; Allows for 160+ minute CDs by flagging the frames (74 -> $74 BCD)
+; with $80, to be used in a special PEOPS CDR build
+
+; v1/a0
+; v0 = current LBA
+; a1 = frames
+
+
+;800212e4 90850002: LBU     00000081 (a1), 0002 (801fff20 (a0)) [801fff22]
+;800212e8 00431023: SUBU    00002850 (v0), 00002850 (v0), 00000285 (v1),
+;****
+;800212ec 00052102: SRL     801fff20 (a0), 00000068 (a1), 04 (4),
+;800212f0 00041880: SLL     00000285 (v1), 00000006 (a0), 02 (2),
+;800212f4 : ADDU    00000018 (v1), 00000018 (v1), 00000006 (a0),
+
+
+org $800212ec
+
+j $80010090
+nop

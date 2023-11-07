@@ -1,0 +1,39 @@
+; .open "SLUS_012.51"
+
+; $860-$B80
+; - This is debug code area
+
+
+; CODE:
+; Address -> Time (BCD)
+;
+; Allows for 160+ minute CDs by flagging the frames (74 -> $74 BCD)
+; with $80, to be used in a special PEOPS CDR build
+
+; t0/v1/a0
+; a1 = minutes
+; v0 = time RAM
+
+
+;800203cc 03e00008: JR      8001eb34 (ra),
+;800203d0 a0450000: SB      00000102 (a1), 0000 (80073d40 (v0)) [80073d40]
+
+
+org $80010060
+
+; $860-890
+
+; check for >$f9 (159) BCD minutes
+srl t0,a1,8
+beq t0,r0,BCD_TIME_DONE
+nop
+
+; flag 160+ minute CD
+lbu t0,2(v0)
+nop
+ori t0,t0,$80
+sb t0,2(v0)
+
+BCD_TIME_DONE:
+jr ra
+nop

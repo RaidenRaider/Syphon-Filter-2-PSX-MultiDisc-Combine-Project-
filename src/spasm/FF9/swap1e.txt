@@ -1,0 +1,24 @@
+; .open "FF9.IMG", 0x--------
+
+
+; CODE:
+; Splash screen - skip input
+
+
+
+
+; [SPLASH] check joypad
+;801f68b0 10400005: BEQ     00000000 (v0), 00000000 (r0), 801f68c8
+;801f68b4 afbf0010: SW      801f669c (ra), 0010 (801ffed8 (sp)) [801ffee8]
+
+; [SPLASH] allow this
+;801f68b8 0c00bd22: JAL     8002f488, 801f669c (ra)
+;801f68bc 24040067: ADDIU   00000008 (a0), 00000000 (r0), 0067 (103)
+
+;801f68c8 8fbf0010: LW      801f669c (ra), 0010 (801ffed8 (sp)) [801ffee8]
+;801f68cc 00000000: NOP    
+
+
+
+org $801f68b0
+nop

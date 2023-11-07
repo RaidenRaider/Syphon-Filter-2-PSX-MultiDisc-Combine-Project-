@@ -1,0 +1,41 @@
+; .open "SLUS_012.51"
+
+; $860-$B80
+; - This is debug code area
+
+
+; CODE:
+; Fix the address returned by CDROM to 160+ min
+
+
+;8019c508 3c03801a: LUI     00000049 (v1), 801a (32794)
+;8019c50c 2470de10: ADDIU   801a0000 (s0), 801a0000 (v1), de10 (56848)
+;8019c510 8e030044: LW      801a0000 (v1), 0044 (8019de10 (s0)) [8019de54]
+;8019c514 00000000: NOP   
+
+; check sectors match
+;8019c518 10430017: BEQ     000025c9 (v0), 000025c9 (v1), 8019c578
+;8019c51c 24020001: ADDIU   000025c9 (v0), 00000000 (r0), 0001 (1)
+
+
+; $8c0
+org $800100c0
+
+; load target address
+lw v1,$44(s0)
+nop
+
+; check 160+ min range (AFC80+)
+lui a1,$A
+ori a1,a1,$FC80
+sltu v1,v1,a1
+bne v1,r0,ADDR_DONE
+nop
+
+; fix CDROM address for 160+ min
+addu v0,v0,a1
+
+ADDR_DONE:
+lw v1,$44(s0)
+jr ra
+nop

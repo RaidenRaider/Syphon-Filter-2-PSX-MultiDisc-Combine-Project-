@@ -1,0 +1,49 @@
+; .open "SLUS"
+
+; $860-$B80
+; - This is debug code area
+
+
+; CODE:
+; Fix the m:s:f returned by CDROM to 160+ min
+
+
+
+
+; time (CDROM timestamp) -> address
+; - out = v0
+
+;80022824 0c0084a4: JAL     80021290, 80022824 (ra)
+;80022828 27a40010: ADDIU   1f8010b8 (a0), 800677bc (sp), 0010 (16)
+
+;8002282c 3c038007: LUI     00000024 (v1), 8007 (32775)
+;80022830 246361d0: ADDIU   80070000 (v1), 80070000 (v1), 61d0 (25040)
+
+; check current target address (internal)
+
+;80022834 8c640018: LW      00000003 (a0), 0018 (800761d0 (v1)) [800761e8]
+;80022838 00000000: NOP    
+;8002283c 14800004: BNE     00000000 (a0), 00000000 (r0), 80022850
+;80022840 00402821: ADDU    00000006 (a1), 00000600 (v0), 00000000 (r0)
+
+; read current target address (internal)
+
+;80022844 8c620948: LW      00000600 (v0), 0948 (800761d0 (v1)) [80076b18]
+;80022848 08008a15: J       80022854
+;8002284c 00000000: NOP    
+
+; add to current counter (internal)
+
+;80022850 : ADDIU   00000001 (v0), 000afc80 (a0), 0001 (1),
+
+; check sectors match (a1 is CDROM timestamp)
+
+;80022854 10a20003: BEQ     00000600 (a1), 00000600 (v0), 80022864
+;80022858 322200ff: ANDI    00000600 (v0), 00000000 (s1), 00ff (255)
+
+
+
+org $80022854
+
+j $800100f0
+nop

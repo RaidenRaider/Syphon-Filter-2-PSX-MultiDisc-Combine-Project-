@@ -1,0 +1,83 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+; - A60-ABF = [CDROM] Movie timestamp
+
+
+; CODE: MOVIE - CDROM timestamp
+
+
+;-->
+;80043b7c : 03E00008  JR      800460f4 (ra),
+;80043b80 : 2442FF6A  ADDIU   00024f43 (v0), 00024f43 (v0), ff6a (65386),
+;-->
+;
+;801e8d40 : 0C010EC1  JAL     80043b04, 801e8d40 (ra),
+;801e8d44 : 27A40010  ADDIU   1f8010b8 (a0), 8005d45c (sp), 0010 (16),
+;801e8d48 : 8E030014  LW      0000002b (v1), 0014 (801fa404 (s0)) [801fa418]
+;801e8d4c : 00000000  NOP    
+
+
+
+; v1/a0
+; v0 = current LBA
+; a1 = frames
+
+
+org $80010A60
+
+
+; [COMPRESSED] Process MOVIE code
+lui a1,$801e
+ori a1,a1,$8d48
+bne ra,a1,EXIT
+nop
+
+; -----------------------
+; -----------------------
+; -----------------------
+; -----------------------
+
+; grab current disc # [800109A0 - 1,2,3,4]
+lui v1,$8001
+lbu a0,$09A0(v1)
+nop
+
+; load new starting LBA (32-bit table - 80010990)
+sll a0,a0,2
+addu v1,v1,a0
+lw a0,$0990-4(v1)
+nop
+
+; adjust LBA value ($33A - x)
+subu v0,v0,a0
+addiu v0,v0,$33a
+
+
+; check for 160+ minutes
+lui v1,$a
+ori v1,v1,$fc80
+sltu a0,v0,v1
+bne a0,r0,EXIT
+nop
+
+; re-adjust for 160+ minutes
+addu v0,v0,v1
+
+; -----------------------
+; -----------------------
+; -----------------------
+; -----------------------
+
+; OLD code
+
+EXIT:
+jr ra
+addiu v0,v0,$ff6a

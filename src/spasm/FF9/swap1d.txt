@@ -1,0 +1,20 @@
+; .open "FF9.IMG", 0x--------
+
+
+; CODE:
+; Splash screen - correct CD
+
+
+
+; checks for correct CD --> continue game (FORCE IT)
+
+;801f655c 14400007: BNE     00000000 (v0), 00000000 (r0), 801f657c
+;801f6560 00000000: NOP    
+;801f6564 0c008af4: JAL     80022bd0, 801f6508 (ra)
+;801f6568 00000000: NOP    
+
+
+org $801f655c
+
+beq r0,r0,$801f657c
+nop

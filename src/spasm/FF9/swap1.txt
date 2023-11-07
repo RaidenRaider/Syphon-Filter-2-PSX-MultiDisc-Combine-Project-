@@ -1,0 +1,27 @@
+; .open "FF9.IMG", 0x--------
+
+
+; CODE:
+; Changes F91.IMG;1 --> 1/2/4/8
+; Reloads IMG tables
+
+
+; This checks if the inserted CD is correct
+
+;800a8298 3084000f: ANDI    00000001 (a0), 00000001 (a0), 000f (15)
+;800a829c 30a2000f: ANDI    8008b000 (v0), 00000002 (a1), 000f (15)
+;800a82a0 00441024: AND     00000002 (v0), 00000002 (v0), 00000001 (a0)
+;800a82a4 00441026: XOR     00000000 (v0), 00000000 (v0), 00000001 (a0)
+
+;800a82a8 03e00008: JR      800a8230 (ra)
+;800a82ac 0002102b: SLTU    00000001 (v0), 00000000 (r0), 00000001 (v0)
+
+org $800a298
+
+addiu v0,a0,$30
+lui a1,$8001
+ori a1,a1,$0403
+sb v0,$0(a1)
+
+jr ra
+sltu v0,r0,r0

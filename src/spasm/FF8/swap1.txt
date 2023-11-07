@@ -1,0 +1,92 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+; - A60-ABF = [CDROM] Movie timestamp
+; - AC0-B0F = [SWAP] Real-time compression patches
+
+
+; CODE: Changes decompressed overlay to bypass swap code
+
+;-->
+;8004d724 : 24020001  ADDIU   00000040 (v0), 00000000 (r0), 0001 (1),
+;8004d728 : A0820003  SB      00000001 (v0), 0003 (80099270 (a0)) [80099273]
+;-->
+;8004d72c : 10C00002  BEQ     00000000 (a2), 00000000 (r0), 8004d738,
+;8004d730 : 3C03E100  LUI     00000000 (v1), e100 (57600),
+
+; safe area to remap compressed overlays
+; - v0,v1
+
+
+org $10ac0
+
+
+; check correct region to edit
+lui v0,$8009
+ori v1,v0,$8574
+bne ra,v1,EXIT
+nop
+
+; -----------------------------
+; -----------------------------
+; -----------------------------
+; -----------------------------
+
+; $$$$ Remove fade-in (ZAP)
+;8009885c : 0601FFF7  BGEZ    00000063 (s0), 8009883c,
+;80098860 : 02002021  ADDU    03000000 (a0), 00000063 (s0), 00000000 (r0),
+
+ori v0,v0,$8000
+sw r0,$85c(v0)
+
+
+; $$$$ Check joypad - FORCE IT
+;80098878 : 14400018  BNE     00000000 (v0), 00000000 (r0), 800988dc,
+;8009887c : 24040001  ADDIU   ffffffff (a0), 00000000 (r0), 0001 (1),
+
+ori v1,r0,$10
+sb v1,$878+3(v0)
+sb r0,$878+2(v0)
+
+
+
+; $$$$ Visual glitch - ZAP IT
+;800988f0 : 0C026063  JAL     8009818c, 800988f0 (ra),
+;800988f4 : 26100004  ADDIU   00000000 (s0), 00000000 (s0), 0004 (4),
+
+sw r0,$8f0(v0)
+
+
+; $$$$ Fade-out loop - ZAP IT
+;800988fc : 1440FFF9  BNE     00000001 (v0), 00000000 (r0), 800988e4,
+;80098900 : 02002021  ADDU    ffffffbf (a0), 00000004 (s0), 00000000 (r0),
+
+sw r0,$8fc(v0)
+
+
+; check disc # --> FORCE IT
+;80098938 : 10430005  BEQ     00000001 (v0), 00000002 (v1), 80098950,
+;8009893c : 00000000  NOP    
+
+sb v1,$938+3(v0)
+sb r0,$938+2(v0)
+
+; -----------------------------
+; -----------------------------
+; -----------------------------
+; -----------------------------
+
+EXIT:
+
+; old code
+addiu v0,r0,1
+
+j $8004d72c
+sb v0,3(a0)

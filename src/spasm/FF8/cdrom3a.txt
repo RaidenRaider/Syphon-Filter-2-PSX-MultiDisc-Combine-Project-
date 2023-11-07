@@ -1,0 +1,31 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+
+
+; CODE: Check for 160+ minute addresses
+
+;80043b58 : 90850002  LBU     000007e2 (a1), 0002 (8005d680 (a0)) [8005d682]
+;80043b5c : 00431023  SUBU    000276a0 (v0), 000276a0 (v0), 0000276a (v1),
+;-->
+;80043b60 : 00052102  SRL     8005d680 (a0), 00000013 (a1), 04 (4),
+;80043b64 : 00041880  SLL     0000276a (v1), 00000001 (a0), 02 (2),
+;-->
+
+
+; v1/a0
+; v0 = current LBA
+; a1 = frames
+
+
+org $80043b60
+
+j $80010a40
+nop

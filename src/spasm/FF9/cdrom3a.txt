@@ -1,0 +1,23 @@
+; .open "FF9.IMG"
+
+
+; CODE:
+; Address -> Time (BCD)
+;
+; Allows for 160+ minute CDs by flagging the frames (74 -> $74 BCD)
+; with $80, to be used in a special PEOPS CDR build
+
+
+;8019c508 3c03801a: LUI     00000049 (v1), 801a (32794)
+;8019c50c 2470de10: ADDIU   801a0000 (s0), 801a0000 (v1), de10 (56848)
+;8019c510 8e030044: LW      801a0000 (v1), 0044 (8019de10 (s0)) [8019de54]
+;8019c514 00000000: NOP   
+
+; check sectors match
+;8019c518 10430017: BEQ     000025c9 (v0), 000025c9 (v1), 8019c578
+;8019c51c 24020001: ADDIU   000025c9 (v0), 00000000 (r0), 0001 (1)
+
+
+org $8019c510
+jal $800100c0
+nop

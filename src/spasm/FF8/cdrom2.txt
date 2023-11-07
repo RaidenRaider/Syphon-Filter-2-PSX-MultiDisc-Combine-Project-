@@ -1,0 +1,72 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = address -> time
+; - 9E0-A3F = IMG LBA
+
+
+; CODE: Patch IMG file (starting LBA) in real-time
+
+;-->
+;80043a00 : 3C031B4E  LUI     800562d8 (v1), 1b4e (6990),
+;80043a04 : 346381B5  ORI     1b4e0000 (v1), 1b4e0000 (v1), 81b5 (33205),
+;-->
+;80043a08 : 24840096  ADDIU   00018275 (a0), 00018275 (a0), 0096 (150),
+;80043a0c : 00830018  MULT    0001830b (a0), 1b4e81b5 (v1),
+
+
+; v1
+; v0
+; a1
+
+org $800109E0
+
+; skip directory reading
+lui v0,$8004
+ori v0,v0,$5a58
+beq ra,v0,EXIT
+nop
+
+; check range (33a+ = remap)
+addiu v0,r0,$33a
+sltu v0,a0,v0
+bne v0,r0,EXIT
+nop
+
+; -----------------------
+; -----------------------
+; -----------------------
+; -----------------------
+
+; grab current disc # [800109A0 - 1,2,3,4]
+lui v1,$8001
+lbu v0,$09A0(v1)
+nop
+
+; load new starting LBA (32-bit table - 80010990)
+sll v0,v0,2
+addu v1,v1,v0
+lw v0,$0990-4(v1)
+nop
+
+; adjust LBA value (x - $33A)
+addiu a0,a0,$fcc6
+addu a0,a0,v0
+
+; -----------------------
+; -----------------------
+; -----------------------
+; -----------------------
+
+EXIT:
+
+; old code
+lui v1,$1b4e
+ori v1,v1,$81b5
+
+j $80043a08
+nop

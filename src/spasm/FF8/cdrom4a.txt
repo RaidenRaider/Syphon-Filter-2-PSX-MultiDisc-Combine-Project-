@@ -1,0 +1,32 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+; - A60-ABF = [CDROM] Movie timestamp
+
+
+; CODE: MOVIE - CDROM timestamp
+
+
+;-->
+;80043b7c : 03E00008  JR      800460f4 (ra),
+;80043b80 : 2442FF6A  ADDIU   00024f43 (v0), 00024f43 (v0), ff6a (65386),
+;-->
+;
+;801e8d40 : 0C010EC1  JAL     80043b04, 801e8d40 (ra),
+;801e8d44 : 27A40010  ADDIU   1f8010b8 (a0), 8005d45c (sp), 0010 (16),
+;801e8d48 : 8E030014  LW      0000002b (v1), 0014 (801fa404 (s0)) [801fa418]
+;801e8d4c : 00000000  NOP    
+
+
+
+org $80043b7c
+
+j $80010a60
+nop

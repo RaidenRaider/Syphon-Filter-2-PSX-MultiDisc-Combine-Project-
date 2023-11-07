@@ -1,0 +1,27 @@
+; .open "FF9.IMG", 0x--------
+
+
+; CODE:
+; Changes F91.IMG;1 --> 1/2/4/8
+; Reloads IMG tables
+
+
+;800a8230 304200ff: ANDI    00000001 (v0), 00000001 (v0), 00ff (255)
+
+; Branch if CD matches
+; - ZAP the BEQ (force reload FF9.IMG tables)
+
+;800a8234 10400003: BEQ     00000001 (v0), 00000000 (r0), 800a8244
+;800a8238 240200ff: ADDIU   00000001 (v0), 00000000 (r0), 00ff (255)
+
+; Identified by momochi
+; - activate swap check routine
+
+;800a823c 0c02a098: JAL     800a8260, 800a8230 (ra)
+;800a8240 02402021: ADDU    00000001 (a0), 00000001 (s2), 00000000 (r0)
+
+
+org $800a8234
+
+nop
+

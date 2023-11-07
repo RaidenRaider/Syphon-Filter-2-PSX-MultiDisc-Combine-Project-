@@ -1,0 +1,30 @@
+; .open "FF9.IMG", 0x--------
+
+
+; CODE:
+; CD splash screen - remove fade out
+
+
+
+
+;801f69d0 0c07da8f: JAL     801f6a3c, 801f69d0 (ra)
+;801f69d4 00000000: NOP    
+
+
+;801f6a3c 27bdffe8: ADDIU   801ffed8 (sp), 801ffed8 (sp), ffe8 (65512)
+
+;$$$$ Fading amount (set to $01)
+
+;801f6a40 24040018: ADDIU   00000001 (a0), 00000000 (r0), 0018 (24)
+
+;801f6a44 3c02801f: LUI     00000000 (v0), 801f (32799)
+;801f6a48 24426bbc: ADDIU   801f0000 (v0), 801f0000 (v0), 6bbc (27580)
+;801f6a4c afbf0010: SW      801f69d8 (ra), 0010 (801ffec0 (sp)) [801ffed0]
+;801f6a50 a0400002: SB      00000000 (r0), 0002 (801f6bbc (v0)) [801f6bbe]
+
+
+
+
+org $801f6a40
+
+addiu a0,r0,$01

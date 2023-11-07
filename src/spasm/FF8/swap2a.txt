@@ -1,0 +1,28 @@
+; $800 [10990-10FE0]
+; - This is debug code area
+
+
+; 10xxx
+; - 990-99F = 32-bit disc LBAs
+; - 9A0-9AF = 8-bit disc # + reserved
+; - 9B0-9DF = [CDROM] address -> time
+; - 9E0-A3F = [IMG] LBA remap
+; - A40-A5F = [CDROM] time -> address
+; - A60-ABF = [CDROM] Movie timestamp
+; - AC0-B0F = [SWAP] Real-time compression patches
+; - B10-B2F = [SWAP] Force disc swap
+
+
+; CODE: Changes decompressed overlay to bypass swap code
+
+
+;$$$$ Disc check --> ZAP IT (force reload) (s0 = target disc)
+
+;80011fb8 : 12020012  BEQ     00000001 (s0), 00000003 (v0), 80012004,
+;80011fbc : 3C068009  LUI     800780d8 (a2), 8009 (32777),
+
+
+org $80011fb8
+
+j $80010b10
+nop
