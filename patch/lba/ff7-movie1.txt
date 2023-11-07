@@ -1,0 +1,161 @@
+set_target 0
+write_addr MOVIE\FSHIP2.BIN
+
+set_target 14
+write_addr MOVIE\FSHIP2N.BIN
+
+set_target 28
+write_addr MOVIE\D_ROPEGO.MOV
+
+set_target 3C
+write_addr MOVIE\D_ROPEIN.MOV
+
+set_target 50
+write_addr MOVIE\U_ROPEIN.MOV
+
+set_target 64
+write_addr MOVIE\U_ROPEGO.MOV
+
+set_target 78
+write_addr MOVIE\GOLD2.MOV
+
+set_target 8C
+write_addr MOVIE\GOLD3.MOV
+
+set_target A0
+write_addr MOVIE\GOLD4.MOV
+
+set_target B4
+write_addr MOVIE\GOLD6.MOV
+
+set_target C8
+write_addr MOVIE\GOLD5.STR
+
+set_target DC
+write_addr MOVIE\BOOGUP.STR
+
+set_target F0
+write_addr MOVIE\BOOGDOWN.STR
+
+set_target 104
+write_addr MOVIE\JUNAIRU.STR
+
+set_target 118
+write_addr MOVIE\JUNAIRD.STR
+
+set_target 12C
+write_addr MOVIE\JUNELEIN.STR
+
+set_target 140
+write_addr MOVIE\JUNELEGO.STR
+
+set_target 154
+write_addr MOVIE\JUNIN_IN.STR
+
+set_target 168
+write_addr MOVIE\JUNIN_GO.STR
+
+set_target 17C
+write_addr MOVIE\OPENMV.BIN
+
+set_target 190
+write_addr MOVIE\MKUP.STR
+
+set_target 1A4
+write_addr MOVIE\NORTHMK.MOV
+
+set_target 1B8
+write_addr MOVIE\MK8.STR
+
+set_target 1CC
+write_addr MOVIE\ONTRAIN.MOV
+
+set_target 1E0
+write_addr MOVIE\MAINPLR.MOV
+
+set_target 1F4
+write_addr MOVIE\SMK.STR
+
+set_target 208
+write_addr MOVIE\SOUTHMK.MOV
+
+set_target 21C
+write_addr MOVIE\PLREXP.MOV
+
+set_target 230
+write_addr MOVIE\FALLPL.MOV
+
+set_target 244
+write_addr MOVIE\MONITOR.STR
+
+set_target 258
+write_addr MOVIE\BIKEGET.MOV
+
+set_target 26C
+write_addr MOVIE\MTNVL.STR
+
+set_target 280
+write_addr MOVIE\MTNVL2.STR
+
+set_target 294
+write_addr MOVIE\BRGNVL.MOV
+
+set_target 2A8
+write_addr MOVIE\NVLMK.MOV
+
+set_target 2BC
+write_addr MOVIE\NIVLSFS.MOV
+
+set_target 2D0
+write_addr MOVIE\JENOVA_E.MOV
+
+set_target 2E4
+write_addr MOVIE\JUNON.STR
+
+set_target 2F8
+write_addr MOVIE\HIWIND0.MOV
+
+set_target 30C
+write_addr MOVIE\MTCRL.STR
+
+set_target 320
+write_addr MOVIE\GOLD1.MOV
+
+set_target 334
+write_addr MOVIE\BISKDEAD.STR
+
+set_target 348
+write_addr MOVIE\BOOGDEMO.STR
+
+set_target 35C
+write_addr MOVIE\BOOGSTAR.STR
+
+set_target 370
+write_addr MOVIE\SETO.STR
+
+set_target 384
+write_addr MOVIE\RCKTFAIL.MOV
+
+set_target 398
+write_addr MOVIE\JAIROFLY.MOV
+
+set_target 3AC
+write_addr MOVIE\JAIROFAL.MOV
+
+set_target 3C0
+write_addr MOVIE\GOLD7.MOV
+
+set_target 3D4
+write_addr MOVIE\GOLD7_2.MOV
+
+set_target 3E8
+write_addr MOVIE\EARITHDD.MOV
+
+set_target 3FC
+write_addr MOVIE\FUNERAL.STR
+
+set_target 410
+write_addr MOVIE\CAR_1209.STR
+
+set_target 424
+write_addr MOVIE\OPENINGE.MOV

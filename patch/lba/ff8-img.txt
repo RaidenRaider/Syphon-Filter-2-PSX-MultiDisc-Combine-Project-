@@ -1,0 +1,6 @@
+set_target 1190
+
+write_addr FF8DISC1.IMG
+write_addr FF8DISC2.IMG
+write_addr FF8DISC3.IMG
+write_addr FF8DISC4.IMG

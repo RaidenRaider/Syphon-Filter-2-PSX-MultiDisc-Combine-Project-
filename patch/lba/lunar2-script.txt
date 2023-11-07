@@ -1,0 +1,67 @@
+set_target A90
+
+insert_dummy S00.STR
+insert_dummy S01.STR
+write_time S02.STR
+write_time S03.STR
+write_time S04.STR
+write_time S05.STR
+write_time S06.STR
+write_time S07.STR
+write_time S08.STR
+write_time S09.STR
+
+write_time S10.STR
+write_time S11.STR
+write_time S12.STR
+write_time S13.STR
+write_time S14.STR
+write_time S15.STR
+write_time S16.STR
+write_time S17.STR
+write_time S18.STR
+insert_dummy S19.STR
+
+insert_dummy S20.STR
+write_time S21.STR
+insert_dummy S22.STR
+write_time S23.STR
+insert_dummy S24.STR
+insert_dummy S25.STR
+insert_dummy S26.STR
+write_time S27.STR
+write_time S28.STR
+write_time S29.STR
+
+write_time S30.STR
+insert_dummy S31.STR
+insert_dummy S32.STR
+insert_dummy S33.STR
+write_time S34.STR
+insert_dummy S35.STR
+write_time S36.STR
+insert_dummy S37.STR
+insert_dummy S38.STR
+write_time S39.STR
+
+write_time S40.STR
+write_time S41.STR
+write_time S42.STR
+write_time S43.STR
+write_time S44.STR
+insert_dummy S45.STR
+insert_dummy S46.STR
+write_time S47.STR
+write_time S48.STR
+write_time S49.STR
+
+insert_dummy S50.STR
+write_time S51.STR
+write_time S52.STR
+write_time S53.STR
+write_time S54.STR
+write_time S55.STR
+write_time S56.STR
+insert_dummy S57.STR
+insert_dummy S58.STR
+write_time S59.STR

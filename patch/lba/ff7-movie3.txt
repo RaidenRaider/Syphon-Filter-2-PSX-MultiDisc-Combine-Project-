@@ -1,0 +1,89 @@
+set_target 0
+write_addr MOVIE\FSHIP2.BIN
+
+set_target 14
+write_addr MOVIE\FSHIP2N.BIN
+
+set_target 28
+write_addr MOVIE\D_ROPEGO.MOV
+
+set_target 3C
+write_addr MOVIE\D_ROPEIN.MOV
+
+set_target 50
+write_addr MOVIE\U_ROPEIN.MOV
+
+set_target 64
+write_addr MOVIE\U_ROPEGO.MOV
+
+set_target 78
+write_addr MOVIE\GOLD2.MOV
+
+set_target 8C
+write_addr MOVIE\GOLD3.MOV
+
+set_target A0
+write_addr MOVIE\GOLD4.MOV
+
+set_target B4
+write_addr MOVIE\GOLD6.MOV
+
+set_target C8
+write_addr MOVIE\GOLD5.STR
+
+set_target DC
+write_addr MOVIE\BOOGUP.STR
+
+set_target F0
+write_addr MOVIE\BOOGDOWN.STR
+
+set_target 104
+write_addr MOVIE\JUNAIRU.STR
+
+set_target 118
+write_addr MOVIE\JUNAIRD.STR
+
+set_target 12C
+write_addr MOVIE\JUNELEIN.STR
+
+set_target 140
+write_addr MOVIE\JUNELEGO.STR
+
+set_target 154
+write_addr MOVIE\JUNIN_IN.STR
+
+set_target 168
+write_addr MOVIE\JUNIN_GO.STR
+
+set_target 17C
+write_addr MOVIE\OPENMV.BIN
+
+set_target 190
+write_addr MOVIE\LAST4_2.BIN
+
+set_target 1A4
+write_addr MOVIE\LAST4_3.BIN
+
+set_target 1B8
+write_addr MOVIE\LAST4_4.MOV
+
+set_target 1CC
+write_addr MOVIE\LASTMAP.BIN
+
+set_target 1E0
+write_addr MOVIE\LASTFLOR.MOV
+
+set_target 1F4
+write_addr MOVIE\ENDING01.MOV
+
+set_target 208
+write_addr MOVIE\ENDING3E.MOV
+
+set_target 21C
+write_addr MOVIE\FCAR.STR
+
+set_target 230
+write_addr MOVIE\WHITE2.BIN
+
+set_target 244
+write_addr MOVIE\ENDING2E.MOV

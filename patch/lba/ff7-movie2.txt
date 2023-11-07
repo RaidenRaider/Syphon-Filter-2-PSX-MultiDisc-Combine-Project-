@@ -1,0 +1,182 @@
+set_target 0
+write_addr MOVIE\FSHIP2.BIN
+
+set_target 14
+write_addr MOVIE\FSHIP2N.BIN
+
+set_target 28
+write_addr MOVIE\D_ROPEGO.MOV
+
+set_target 3C
+write_addr MOVIE\D_ROPEIN.MOV
+
+set_target 50
+write_addr MOVIE\U_ROPEIN.MOV
+
+set_target 64
+write_addr MOVIE\U_ROPEGO.MOV
+
+set_target 78
+write_addr MOVIE\GDUMMY0.HTM
+
+set_target 8C
+write_addr MOVIE\GDUMMY1.HTM
+
+set_target A0
+write_addr MOVIE\GDUMMY2.HTM
+
+set_target B4
+write_addr MOVIE\GDUMMY3.HTM
+
+set_target C8
+write_addr MOVIE\GDUMMY4.HTM
+
+set_target DC
+write_addr MOVIE\BOOGUP.STR
+
+set_target F0
+write_addr MOVIE\BOOGDOWN.STR
+
+set_target 104
+write_addr MOVIE\JUNAIRU.STR
+
+set_target 118
+write_addr MOVIE\JUNAIRD.STR
+
+set_target 12C
+write_addr MOVIE\JUNELEIN.STR
+
+set_target 140
+write_addr MOVIE\JUNELEGO.STR
+
+set_target 154
+write_addr MOVIE\JUNIN_IN.STR
+
+set_target 168
+write_addr MOVIE\JUNIN_GO.STR
+
+set_target 17C
+write_addr MOVIE\OPENMV.BIN
+
+set_target 190
+write_addr MOVIE\GREATPIT.MOV
+
+set_target 1A4
+write_addr MOVIE\C_SCENE1.MOV
+
+set_target 1B8
+write_addr MOVIE\C_SCENE2.MOV
+
+set_target 1CC
+write_addr MOVIE\C_SCENE3.MOV
+
+set_target 1E0
+write_addr MOVIE\FF_DAIKU.MOV
+
+set_target 1F4
+write_addr MOVIE\METEOSKY.MOV
+
+set_target 208
+write_addr MOVIE\WEAPON0.MOV
+
+set_target 21C
+write_addr MOVIE\WEAPON1.MOV
+
+set_target 230
+write_addr MOVIE\WEAPON2.MOV
+
+set_target 244
+write_addr MOVIE\WEAPON3.MOV
+
+set_target 258
+write_addr MOVIE\WEAPON4.MOV
+
+set_target 26C
+write_addr MOVIE\WEAPON5.MOV
+
+set_target 280
+write_addr MOVIE\HWINDFLY.MOV
+
+set_target 294
+write_addr MOVIE\PHOENIX.MOV
+
+set_target 2A8
+write_addr MOVIE\NRCRL.MOV
+
+set_target 2BC
+write_addr MOVIE\NRCRLB.MOV
+
+set_target 2D0
+write_addr MOVIE\DUMCRUSH.MOV
+
+set_target 2E4
+write_addr MOVIE\ZMIND11.STR
+
+set_target 2F8
+write_addr MOVIE\ZMIND21.STR
+
+set_target 30C
+write_addr MOVIE\ZMIND31.STR
+
+set_target 320
+write_addr MOVIE\GELNICA.MOV
+
+set_target 334
+write_addr MOVIE\RCKTOFF.MOV
+
+set_target 348
+write_addr MOVIE\WHITE2.BIN
+
+set_target 35C
+write_addr MOVIE\JUNSEA.STR
+
+set_target 370
+write_addr MOVIE\RCKTHIT.MOV
+
+set_target 384
+write_addr MOVIE\RCKTHIT2.MOV
+
+set_target 398
+write_addr MOVIE\METEOFIX.MOV
+
+set_target 3AC
+write_addr MOVIE\CANONON.MOV
+
+set_target 3C0
+write_addr MOVIE\FEELWIN0.MOV
+
+set_target 3D4
+write_addr MOVIE\FEELWIN1.MOV
+
+set_target 3E8
+write_addr MOVIE\CANONHT1.MOV
+
+set_target 3FC
+write_addr MOVIE\CANONHT2.MOV
+
+set_target 410
+write_addr MOVIE\CANONH3F.MOV
+
+set_target 424
+write_addr MOVIE\PARASHOT.MOV
+
+set_target 438
+write_addr MOVIE\HWINDJET.MOV
+
+set_target 44C
+write_addr MOVIE\CANONHT0.MOV
+
+set_target 460
+write_addr MOVIE\WH2E2.STR
+
+set_target 474
+write_addr MOVIE\LOSLAKE1.MOV
+
+set_target 488
+write_addr MOVIE\LSLMV.STR
+
+set_target 49C
+write_addr MOVIE\CANONH1P.MOV
+
+set_target 4B0
+write_addr MOVIE\CANON.MOV
