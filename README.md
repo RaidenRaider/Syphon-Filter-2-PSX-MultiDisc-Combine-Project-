@@ -5,8 +5,7 @@ Originally created by "Shalma" on https://www.ngemu.com/threads/disc-combining-k
 
 Syphon Filter 2 [SCUS-94451 / 94492]
 
-This will combine your 2 game CDs into 1 disc.
-Tested only with ePSXe 1.6.0 and ePSXe 1.7.0
+This will combine your 2 game CDs into 1 disc. (Tested only with ePSXe 1.6.0 and ePSXe 1.7.0).
 
 WARNING: You'll need ~4GB to finish the operation
 
@@ -43,8 +42,8 @@ README for NTSC-U versions of Syphon Filter 2:
 3. Run patch\cd2dvd.bat
 - Removes disc swapping
 
-4. Move the contents of CD2 to folder 'merge' (overwrite all)
-   Move the contents of CD1 to folder 'merge' (overwrite all)
+4. Move the contents of CD2 to folder 'merge' (overwrite all).
+   Move the contents of CD1 to folder 'merge' (overwrite all).
 - File merge\___merge.txt has a pre-built CD tree
 
 5. Run merge\build.bat
